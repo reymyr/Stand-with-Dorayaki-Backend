@@ -1,0 +1,26 @@
+{
+  "name": "stand-with-dorayaki-backend",
+  "version": "1.0.0",
+  "description": "Backend for Stand with Dorayaki",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reymyr/Stand-with-Dorayaki-Backend.git"
+  },
+  "author": "Reyhan Emyr Arrosyid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reymyr/Stand-with-Dorayaki-Backend/issues"
+  },
+  "homepage": "https://github.com/reymyr/Stand-with-Dorayaki-Backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.1"
+  }
+}
