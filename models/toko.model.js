@@ -11,7 +11,7 @@ const tokoDorayakiSchema = new Schema({
     jalan: String,
     kecamatan: String,
     provinsi: String,
-    stok: [{dorayakiId: { type: mongoose.ObjectId, ref: 'Dorayaki' }, jumlah: Number}]
+    stok: [{dorayaki: { type: mongoose.Types.ObjectId, ref: 'Dorayaki' }, jumlah: {type: Number, min: 0}}]
 })
 
 const TokoDorayaki = mongoose.model('Toko Dorayaki', tokoDorayakiSchema);
