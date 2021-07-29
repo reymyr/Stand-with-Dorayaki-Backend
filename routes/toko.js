@@ -42,7 +42,7 @@ router.route('/add').post((req, res) => {
 
 // PUT
 // Mengubah data toko dorayaki
-router.route('/update/:id').put((req, res) => {
+router.route('/:id').put((req, res) => {
     TokoDorayaki.findById(req.params.id)
         .then(toko => {
             toko.nama = req.body.nama ? req.body.nama : toko.nama;
@@ -83,41 +83,42 @@ router.route('/:id/stok').patch((req, res) => {
 
 
 // Memindahkan stok dari satu toko ke toko lain
-router.route('/transfer').patch(async (req, res) => {
+router.route('/transfer').patch((req, res) => {
     const asal = req.body.asal;
     const tujuan = req.body.tujuan;
     const stok = req.body.stok;
 
-    await TokoDorayaki.findById(asal)
+    TokoDorayaki.findById(asal)
         .then(tokoAsal => {
             stokAsal = tokoAsal.stok;
-            stokAsal.forEach(element => {
-                element.jumlah -= stok.find(it => it.dorayaki == element.dorayaki).jumlah;
+
+            stok.forEach(element => {
+                stokAsal[stokAsal.findIndex(it => it.dorayaki == element.dorayaki)].jumlah -= element.jumlah;
             });
 
             tokoAsal.save()
+                .then(() => {
+                    TokoDorayaki.findById(tujuan)
+                        .then(tokoTujuan => {
+                            stokTujuan = tokoTujuan.stok;
+                            stok.forEach(element => {
+                                dorayakiTambahan = stokTujuan.find(it => it.dorayaki == element.dorayaki);
+                                if (dorayakiTambahan) {
+                                    dorayakiTambahan.jumlah += element.jumlah;
+                                } else {
+                                    stokTujuan.push(element);
+                                }
+                            });
+                            
+                            tokoTujuan.save()
+                                .catch(err => res.status(400).json('Error: ' + err));
+                        })
+                        .then(() => res.status(200).json('Stok berhasil dipindahkan'))
+                        .catch(err => res.status(400).json('Error: ' + err));    
+                })
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
-    
-    await TokoDorayaki.findById(tujuan)
-        .then(tokoTujuan => {
-            stokTujuan = tokoTujuan.stok;
-            stok.forEach(element => {
-                dorayakiTambahan = stokTujuan.find(it => it.dorayaki == element.dorayaki);
-                if (dorayakiTambahan) {
-                    dorayakiTambahan.jumlah += element.jumlah;
-                } else {
-                    stokTujuan.push(element);
-                }
-            });
-            
-            tokoTujuan.save()
-                .catch(err => res.status(400).json('Error: ' + err));
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-
-    res.status(200).json('Stok berhasil dipindahkan');
 });
 
 // DELETE
