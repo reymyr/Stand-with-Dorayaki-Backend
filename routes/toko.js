@@ -75,7 +75,7 @@ router.route('/:id/stok').patch((req, res) => {
             });
             
             toko.save()
-                .then(() => res.status(200).json('Stock updated'))
+                .then(() => res.status(200).json({message: 'Stock updated', stok: stokToko}))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
