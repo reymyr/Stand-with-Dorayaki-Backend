@@ -8,8 +8,14 @@ const dorayakiSchema = new Schema({
         required: true,
         unique: true
     },
-    deskripsi: String,
-    gambar: String,
+    deskripsi: {
+        type: String,
+        required: true
+    },
+    gambar: {
+        type: String,
+        required: true
+    },
 })
 
 const Dorayaki = mongoose.model('Dorayaki', dorayakiSchema);

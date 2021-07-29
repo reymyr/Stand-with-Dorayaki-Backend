@@ -1,0 +1,16 @@
+[
+  {
+    "nama": "Toko A",
+    "jalan": "Jalan A",
+    "kecamatan": "Kecamatan A",
+    "provinsi": "Provinsi A",
+    "stok": []
+  },
+  {
+    "nama": "Toko B",
+    "jalan": "Jalan B",
+    "kecamatan": "Kecamatan B",
+    "provinsi": "Provinsi B",
+    "stok": []
+  }
+]

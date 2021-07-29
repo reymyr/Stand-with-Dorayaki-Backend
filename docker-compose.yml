@@ -20,6 +20,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+  
+  mongo-seed:
+    build: ./seed
+    depends_on:
+      - mongo
+    env_file: .env
+    environment:
+      - DB_HOST=$MONGO_HOSTNAME
+      - DB_NAME=$MONGO_DB
+      - DB_PORT=$MONGO_PORT
 
 volumes:
   mongo-data:

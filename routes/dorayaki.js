@@ -1,5 +1,6 @@
 const router = require('express').Router();
-let Dorayaki = require('../models/dorayaki.model');
+
+const Dorayaki = require('../models/dorayaki.model');
 
 // GET
 router.route('/').get((req, res) => {
