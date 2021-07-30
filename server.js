@@ -26,8 +26,8 @@ connection.once('open', () => {
 const dorayakiRouter = require('./routes/dorayaki');
 const tokoRouter = require('./routes/toko');
 
-app.use('/dorayaki', dorayakiRouter);
-app.use('/toko', tokoRouter);
+app.use('/api/dorayaki', dorayakiRouter);
+app.use('/api/toko', tokoRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)

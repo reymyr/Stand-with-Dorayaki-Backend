@@ -74,9 +74,17 @@ router.route('/:id/stok').patch((req, res) => {
                 }
             });
             
-            toko.save()
-                .then(() => res.status(200).json({message: 'Stock updated', stok: stokToko}))
-                .catch(err => res.status(400).json('Error: ' + err));
+            toko.save((err, toko) => {
+                if (err) {
+                    res.status(400).json('Error: ' + err)
+                } else {
+                    TokoDorayaki.populate(toko, {path: 'stok.dorayaki'})
+                        .then((toko) => {
+                            console.log(toko);
+                            res.status(200).json({message: 'Stock updated', stok: toko.stok})
+                        })
+                }
+            })
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
